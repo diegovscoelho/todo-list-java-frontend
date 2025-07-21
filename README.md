@@ -1,4 +1,4 @@
-# 📝 TodoApp Frontend (Angular)
+# 📝 Todo-List-Java-Frontend (Angular)
 
 Este repositório contém o código-fonte da interface de usuário (frontend) para a aplicação de gerenciamento de tarefas (To-Do List), desenvolvida com Angular. Ele se integra a uma API RESTful construída em Spring Boot.
 

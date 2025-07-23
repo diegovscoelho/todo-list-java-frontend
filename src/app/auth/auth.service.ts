@@ -5,37 +5,41 @@ import { Observable, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt'; // Para decodificar JWTs
 import { environment } from '../../environments/environment';
 
-// Interface para o objeto de resposta de login (ajuste conforme seu backend)
 interface LoginResponse {
   token: string;
-  // Outros dados, como user role, user id, etc.
+}
+
+interface RegisterResponse {
+  message: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = environment.backendUrl + '/auth/login';
+  private baseUrl = environment.backendUrl;
   private jwtHelper = new JwtHelperService();
 
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(this.apiUrl, { username, password }).pipe(
+    return this.http.post<LoginResponse>(this.baseUrl, { username, password }).pipe(
       tap(response => {
         localStorage.setItem('jwt_token', response.token);
       })
     );
   }
 
+  register(username: string, email: string, password: string): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(`${this.baseUrl}/auth/register`, { username, email, password });
+  }
+
   logout(): void {
     localStorage.removeItem('jwt_token');
-    // Remover outros dados do usuário se armazenados
   }
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem('jwt_token');
-    // Verifica se o token existe e se não está expirado
     return token != null && !this.jwtHelper.isTokenExpired(token);
   }
 
@@ -43,7 +47,6 @@ export class AuthService {
     return localStorage.getItem('jwt_token');
   }
 
-  // Opcional: Para obter informações do payload do JWT
   getDecodedToken(): any | null {
     const token = this.getToken();
     return token ? this.jwtHelper.decodeToken(token) : null;

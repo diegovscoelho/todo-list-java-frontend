@@ -68,4 +68,8 @@ export class RegisterComponent implements OnInit {
       this.errorMessage = 'Por favor, corrija os erros do formulário.';
     }
   }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

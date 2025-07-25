@@ -1,3 +1,7 @@
+.parent-container {
+  font-family: 'Poppins', sans-serif;
+}
+
 .register-container {
   max-width: 400px;
   margin: 50px auto;
@@ -50,4 +54,15 @@ button[type="submit"]:hover:not(:disabled) {
 button[type="submit"]:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+
+button[type="button"] {
+  width: 100%;
+  padding-top: 24px;
+  color: black;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-family: 'Poppins', sans-serif;
 }

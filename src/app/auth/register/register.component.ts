@@ -41,33 +41,31 @@ export class RegisterComponent implements OnInit {
     return password === confirmPassword ? null : { mismatch: true };
   }
 
-  // TODO: Implementar o método de registro
+  onSubmit(): void {
+    this.errorMessage = null;
+    this.successMessage = null;
 
-  // onSubmit(): void {
-  //   this.errorMessage = null;
-  //   this.successMessage = null;
+    if (this.registerForm.valid) {
+      const { username, email, password } = this.registerForm.value;
 
-  //   if (this.registerForm.valid) {
-  //     const { username, email, password } = this.registerForm.value;
-
-  //     this.authService.register(username, email, password).subscribe({
-  //       next: (response) => {
-  //         console.log('Registro bem-sucedido!', response);
-  //         this.successMessage = 'Conta criada com sucesso! Você pode fazer login agora.';
-  //         this.router.navigate(['/login']);
-  //       },
-  //       error: (err) => {
-  //         console.error('Erro no registro:', err);
-  //         if (err.status === 409) {
-  //           this.errorMessage = 'Usuário ou e-mail já estão em uso.';
-  //         } else {
-  //           this.errorMessage = 'Ocorreu um erro ao registrar. Tente novamente.';
-  //         }
-  //       }
-  //     });
-  //   } else {
-  //     this.registerForm.markAllAsTouched();
-  //     this.errorMessage = 'Por favor, corrija os erros do formulário.';
-  //   }
-  // }
+      this.authService.register(username, email, password).subscribe({
+        next: (response) => {
+          console.log('Registro bem-sucedido!', response);
+          this.successMessage = 'Conta criada com sucesso! Você pode fazer login agora.';
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          console.error('Erro no registro:', err);
+          if (err.status === 409) {
+            this.errorMessage = 'Usuário ou e-mail já estão em uso.';
+          } else {
+            this.errorMessage = 'Ocorreu um erro ao registrar. Tente novamente.';
+          }
+        }
+      });
+    } else {
+      this.registerForm.markAllAsTouched();
+      this.errorMessage = 'Por favor, corrija os erros do formulário.';
+    }
+  }
 }

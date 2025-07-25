@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -35,9 +35,9 @@ export class LoginComponent implements OnInit {
     this.errorMessage = null;
 
     if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
+      const { email, password } = this.loginForm.value;
 
-      this.authService.login(username, password).subscribe({
+      this.authService.login(email, password).subscribe({
         next: (response) => {
           console.log('Login bem-sucedido!', response);
           this.router.navigate(['/dashboard']);
@@ -54,5 +54,9 @@ export class LoginComponent implements OnInit {
     } else {
       this.loginForm.markAllAsTouched();
     }
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/register']);
   }
 }

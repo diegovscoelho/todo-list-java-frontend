@@ -7,7 +7,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
-import { Register } from './auth/register/register.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt_token');
@@ -15,8 +15,7 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    Register,
+    AppComponent
   ],
   imports: [
     BrowserModule,

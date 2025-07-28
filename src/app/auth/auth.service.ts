@@ -7,6 +7,10 @@ import { environment } from '../../environments/environment';
 
 interface LoginResponse {
   token: string;
+  type: string;
+  id: number;
+  username: string;
+  email: string; 
 }
 
 interface RegisterResponse {
@@ -22,20 +26,27 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(this.baseUrl, { username, password }).pipe(
+  login(email: string, password: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.baseUrl}/api/users/login`, { email, password }).pipe(
       tap(response => {
         localStorage.setItem('jwt_token', response.token);
+
+        localStorage.setItem('user_data', JSON.stringify({
+          id: response.id,
+          username: response.username,
+          email: response.email
+        }));
       })
     );
   }
 
   register(username: string, email: string, password: string): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>(`${this.baseUrl}/auth/register`, { username, email, password });
+    return this.http.post<RegisterResponse>(`${this.baseUrl}/api/users/register`, { username, email, password });
   }
 
   logout(): void {
     localStorage.removeItem('jwt_token');
+    localStorage.removeItem('user_data');
   }
 
   isAuthenticated(): boolean {

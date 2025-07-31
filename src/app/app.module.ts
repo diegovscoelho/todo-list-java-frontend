@@ -7,6 +7,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
+import { Navbar } from './components/navbar/navbar';
+import { DashboardComponent } from './dashboard/dashboard';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt_token');
@@ -15,6 +17,8 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
+    Navbar,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +35,9 @@ export function tokenGetter() {
     }),
     CommonModule,
     LoginComponent,
+  ],
+  exports: [
+    Navbar,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

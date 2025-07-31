@@ -1,0 +1,22 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+}
+
+.main-content {
+    width: 720px;
+    background-color: grey;
+    border-radius: 25px;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+}
+
+.create-task {
+    text-align: end;
+}
+
+.content {
+    padding: 0 20px;
+}
